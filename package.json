@@ -1,0 +1,35 @@
+{
+  "name": "typescript-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:watch-drawler": "tsc -w ./crawler/src/crawler.ts --outDir ./build/crawler",
+    "dev:nodemon-crawler": "nodemon ./build/crawler/crawler.js",
+    "dev-crawler": "concurrently npm:dev:*",
+    "build-crawler": "tsc ./crawler/src/crawler.ts --outDir ./build/crawler"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      "./build/crawler/"
+    ]
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "zzkuai",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.29",
+    "@types/superagent": "^4.1.11",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.7",
+    "ts-node": "^10.0.0",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "superagent": "^5.1.1"
+  }
+}
