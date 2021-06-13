@@ -33,8 +33,4 @@ class Crawler {
   }
 }
 
-const secret = 'secretKey'
-const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`
-
-const analyzer = CourseAnalyzer.getInstance()
-new Crawler(url, analyzer)
+export default Crawler

@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:watch-drawler": "tsc -w ./crawler/src/crawler.ts --outDir ./build/crawler",
-    "dev:nodemon-crawler": "nodemon ./build/crawler/crawler.js",
-    "dev-crawler": "concurrently npm:dev:*"
+    "dev:build": "tsc -w",
+    "dev:start": "nodemon ./build/index.js",
+    "dev": "tsc && concurrently npm:dev:*"
   },
   "nodemonConfig": {
     "verbose": true,
-    "watch": []
+    "ignore": [
+      "data/*"
+    ]
   },
   "keywords": [
     "typescript"
@@ -19,16 +21,17 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cheerio": "^0.22.29",
+    "@types/express": "^4.17.12",
     "@types/superagent": "^4.1.11",
     "concurrently": "^6.2.0",
     "nodemon": "^2.0.7",
-    "parcel": "^2.0.0-beta.2",
     "ts-node": "^10.0.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
-    "jquery": "^3.6.0",
+    "express": "^4.17.1",
     "superagent": "^5.1.1"
   }
 }
