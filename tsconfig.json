@@ -1,4 +1,9 @@
 {
+  "include": [
+    // "./crawler",
+    // "./demo",
+    "./namespace"
+  ],
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

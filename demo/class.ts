@@ -1,7 +1,7 @@
 class Person {
-  readonly height: number
+  readonly height: number = 171
   protected uname: string
-  private _age: number
+  private _age: number = 24
   getName() {
     return this.uname
   }
