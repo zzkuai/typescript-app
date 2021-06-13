@@ -7,7 +7,8 @@
     "dev:watch-drawler": "tsc -w ./crawler/src/crawler.ts --outDir ./build/crawler",
     "dev:nodemon-crawler": "nodemon ./build/crawler/crawler.js",
     "dev-crawler": "concurrently npm:dev:*",
-    "build-crawler": "tsc ./crawler/src/crawler.ts --outDir ./build/crawler"
+    "build-crawler": "tsc ./crawler/src/crawler.ts --outDir ./build/crawler",
+    "jquery-start": "parcel ./jquery/index.html"
   },
   "nodemonConfig": {
     "verbose": true,
@@ -25,11 +26,13 @@
     "@types/superagent": "^4.1.11",
     "concurrently": "^6.2.0",
     "nodemon": "^2.0.7",
+    "parcel": "^2.0.0-beta.2",
     "ts-node": "^10.0.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "jquery": "^3.6.0",
     "superagent": "^5.1.1"
   }
 }

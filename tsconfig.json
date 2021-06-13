@@ -2,7 +2,8 @@
   "include": [
     // "./crawler",
     // "./demo",
-    "./namespace"
+    // "./namespace",
+    "./jquery"
   ],
   "compilerOptions": {
     /* Basic Options */
