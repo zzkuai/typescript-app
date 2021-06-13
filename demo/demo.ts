@@ -103,3 +103,32 @@ class DataManager2<T extends NumberAndString> {
 }
 const data2 = new DataManager2([1])
 console.log(data.getItem(0))
+
+// keyof
+interface User {
+  name: string
+  age: number
+}
+// type T = 'name'
+// key: 'name'
+// Person['name']
+
+class U {
+  constructor(private info: User) {}
+
+  // getInfo<T extends keyof User>(key: T): User[T] {
+  //   return this.info[key]
+  // }
+
+  getInfo(key: keyof User) {
+    return this.info[key]
+  }
+}
+
+const u = new U({
+  name: 'zzkuai',
+  age: 24,
+})
+
+const uname = u.getInfo('name')
+console.log(uname)
