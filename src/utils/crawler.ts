@@ -1,14 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as superagent from 'superagent' // 请求库
-import CourseAnalyzer from './courseAnalyzer'
-
-export interface Analyzer {
-  analyze: (html: string, filePath: string) => string
-}
+import { Analyzer } from './analyzer'
 
 class Crawler {
-  private filePath = path.resolve(__dirname, '../data/course.json')
+  private filePath = path.resolve(__dirname, '../../data/course.json')
 
   // 获取页面html内容
   private async getRawHtml() {

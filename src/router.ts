@@ -1,8 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import { Router, Request, Response } from 'express'
-import CourseAnalyzer from './courseAnalyzer'
-import Crawler from './crawler'
+import { Router, Request, Response, NextFunction } from 'express'
+import Analyzer from './utils/analyzer'
+import Crawler from './utils/crawler'
+import { getResponseData } from './utils/util'
 
 // 扩展原有类型
 interface RequestWithBody extends Request {
@@ -11,23 +12,23 @@ interface RequestWithBody extends Request {
   }
 }
 
+// 检查是否登录中间件
+const checkLogin = (req: Request, res: Response, next: NextFunction) => {
+  const isLogin = req.session?.login
+  if (!isLogin) return res.json(getResponseData(null, '请先登录'))
+
+  next()
+}
+
 const router = Router()
 
 router.get('/', (req: RequestWithBody, res: Response) => {
   const isLogin = req.session?.login
-  let html
-
-  if (isLogin) {
-    html = fs.readFileSync(
-      path.resolve(__dirname, '../static/logout.html'),
-      'utf-8'
-    )
-  } else {
-    html = fs.readFileSync(
-      path.resolve(__dirname, '../static/login.html'),
-      'utf-8'
-    )
-  }
+  const page = isLogin ? 'logout.html' : 'login.html'
+  const html = fs.readFileSync(
+    path.resolve(__dirname, `../static/${page}`),
+    'utf-8'
+  )
 
   res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' })
   res.end(html)
@@ -38,7 +39,7 @@ router.get('/logout', (req: Request, res: Response) => {
     req.session.login = undefined
   }
 
-  res.redirect('/')
+  res.json(getResponseData(null))
 })
 
 router.post('/login', (req: RequestWithBody, res: Response) => {
@@ -46,39 +47,33 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
   const isLogin = req.session?.login
 
   if (isLogin) {
-    res.send('历史用户 登录成功')
+    res.json(getResponseData(null, '用户已登录'))
   } else {
-    if (password !== '123') return res.send('登录失败')
+    if (password !== '123') return res.json(getResponseData(null, '登录失败'))
 
     if (req.session) {
       req.session.login = true
-      res.send('登录成功')
+      res.json(getResponseData(null))
     }
   }
 })
 
-router.get('/getData', (req: Request, res: Response) => {
-  const isLogin = req.session?.login
-
-  if (!isLogin) return res.send('请先登录')
-
+router.get('/getData', checkLogin, (req: Request, res: Response) => {
   const secret = 'x3b174jsx'
   const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`
-  const analyzer = CourseAnalyzer.getInstance()
+  const analyzer = Analyzer.getInstance()
   new Crawler(url, analyzer)
 
-  res.send('数据爬取成功')
+  res.json(getResponseData(null))
 })
 
-router.get('/showData', (req: Request, res: Response) => {
-  const isLogin = req.session?.login
-  if (!isLogin) return res.send('请先登录')
+router.get('/showData', checkLogin, (req: Request, res: Response) => {
   try {
     const position = path.resolve(__dirname, '../data/course.json')
     const result = fs.readFileSync(position, 'utf-8')
-    res.json(JSON.parse(result))
+    res.json(getResponseData(JSON.parse(result)))
   } catch (e) {
-    res.send('尚未爬取到数据')
+    res.json(getResponseData(null, '数据不存在'))
   }
 })
 

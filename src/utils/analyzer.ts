@@ -1,7 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as cheerio from 'cheerio' // 类似 jquery
-import { Analyzer } from './crawler'
+
+export interface Analyzer {
+  analyze: (html: string, filePath: string) => string
+}
 
 interface Course {
   title: string

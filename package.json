@@ -6,7 +6,8 @@
   "scripts": {
     "dev:build": "tsc -w",
     "dev:start": "nodemon ./build/index.js",
-    "dev": "tsc && concurrently npm:dev:*"
+    "dev": "tsc && concurrently npm:dev:*",
+    "build": "tsc"
   },
   "nodemonConfig": {
     "verbose": true,
