@@ -4,17 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:watch-drawler": "tsc -w ./crawler/src/crawler.ts --outDir ./build/crawler",
-    "dev:nodemon-crawler": "nodemon ./build/crawler/crawler.js",
-    "dev-crawler": "concurrently npm:dev:*",
-    "build-crawler": "tsc ./crawler/src/crawler.ts --outDir ./build/crawler",
     "jquery-start": "parcel ./jquery/index.html"
   },
   "nodemonConfig": {
     "verbose": true,
-    "watch": [
-      "./build/crawler/"
-    ]
+    "watch": []
   },
   "keywords": [
     "typescript"
