@@ -1,10 +1,5 @@
 {
-  "include": [
-    // "./crawler",
-    // "./demo",
-    // "./namespace",
-    "./jquery"
-  ],
+  "include": [],
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

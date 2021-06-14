@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "jquery-start": "parcel ./jquery/index.html"
+    "jquery-start": "parcel ./index.html"
   },
   "nodemonConfig": {
     "verbose": true,
