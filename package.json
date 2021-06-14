@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "jquery-start": "parcel ./jquery/index.html"
-  },
+  "scripts": {},
   "nodemonConfig": {
     "verbose": true,
     "watch": []
