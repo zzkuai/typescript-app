@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "ts-node ./src/index.ts"
+  },
   "nodemonConfig": {
     "verbose": true,
     "watch": []
@@ -14,17 +16,12 @@
   "author": "zzkuai",
   "license": "ISC",
   "devDependencies": {
-    "@types/cheerio": "^0.22.29",
-    "@types/superagent": "^4.1.11",
     "concurrently": "^6.2.0",
     "nodemon": "^2.0.7",
-    "parcel": "^2.0.0-beta.2",
     "ts-node": "^10.0.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "jquery": "^3.6.0",
-    "superagent": "^5.1.1"
+    "reflect-metadata": "^0.1.13"
   }
 }
