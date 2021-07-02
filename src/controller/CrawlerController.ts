@@ -9,6 +9,8 @@ import Crawler from '../utils/crawler'
 // 检查是否登录中间件
 const checkLogin = (req: Request, res: Response, next: NextFunction) => {
   const isLogin = !!req.session?.login
+  console.log('checkLogin middleware')
+
   if (!isLogin) {
     res.json(getResponseData(null, '请先登录'))
   } else {
@@ -16,10 +18,16 @@ const checkLogin = (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const test = (req: Request, res: Response, next: NextFunction) => {
+  console.log('test middleware')
+  next()
+}
+
 @controller('/')
 export class CrawlerController {
   @get('/getData')
   @use(checkLogin)
+  @use(test)
   getData(req: Request, res: Response) {
     const secret = 'x3b174jsx'
     const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`
