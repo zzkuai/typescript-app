@@ -10,22 +10,25 @@ interface RequestWithBody extends Request {
   }
 }
 
-@controller('/')
+@controller('/api')
 export class LoginController {
+  @get('/isLogin')
+  isLogin(req: RequestWithBody, res: Response) {
+    const isLogin = !!req.session?.login
+    res.json(getResponseData(isLogin))
+  }
+
   @post('/login')
   login(req: RequestWithBody, res: Response) {
     const { password } = req.body
-    const isLogin = !!req.session?.login
 
-    if (isLogin) {
-      res.json(getResponseData(null, '用户已登录'))
-    } else {
-      if (password === '123' && req.session) {
-        req.session.login = true
-        res.json(getResponseData(null))
-      } else {
-        res.json(getResponseData(null, '登录失败'))
-      }
+    if (password !== '123') {
+      res.json(getResponseData(null, '密码错误，登录失败'))
+    }
+
+    if (req.session) {
+      req.session.login = true
+      res.json(getResponseData(null))
     }
   }
 
@@ -38,16 +41,16 @@ export class LoginController {
     res.json(getResponseData(null))
   }
 
-  @get('/')
-  home(req: RequestWithBody, res: Response) {
-    const isLogin = !!req.session?.login
-    const page = isLogin ? 'logout.html' : 'login.html'
-    const html = fs.readFileSync(
-      path.resolve(__dirname, `../../static/${page}`),
-      'utf-8'
-    )
+  // @get('/')
+  // home(req: RequestWithBody, res: Response) {
+  //   const isLogin = !!req.session?.login
+  //   const page = isLogin ? 'logout.html' : 'login.html'
+  //   const html = fs.readFileSync(
+  //     path.resolve(__dirname, `../../static/${page}`),
+  //     'utf-8'
+  //   )
 
-    res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' })
-    res.end(html)
-  }
+  //   res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' })
+  //   res.end(html)
+  // }
 }
