@@ -2,30 +2,15 @@ import React from 'react'
 import { Button, message } from 'antd'
 import { Redirect } from 'react-router-dom'
 import ReactECharts from 'echarts-for-react'
-import { EChartsOption } from 'echarts'
+import { EChartsOption, SeriesOption } from 'echarts'
 import moment from 'moment'
 import axios from 'axios'
 import './index.css'
 
-interface CourseItem {
-  title: string
-  count: number
-}
-interface CourseData {
-  [key: string]: CourseItem[]
-}
-
-interface SerieItem {
-  name: string
-  type: string
-  stack: string
-  data: number[]
-}
-
 interface State {
   isLogin: boolean
   isLoaded: boolean
-  data: CourseData
+  data: ResponseData.CourseData
 }
 
 class Home extends React.Component<{}, State> {
@@ -104,7 +89,7 @@ class Home extends React.Component<{}, State> {
       // })
     }
 
-    const seriesData = Object.keys(tempData).map((item) => {
+    const seriesData: SeriesOption[] = Object.keys(tempData).map((item) => {
       return {
         name: item,
         type: 'line',

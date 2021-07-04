@@ -34,7 +34,7 @@ export class CrawlerController {
     const analyzer = Analyzer.getInstance()
     new Crawler(url, analyzer)
 
-    res.json(getResponseData(null))
+    res.json(getResponseData<ResponseData.getData>(null))
   }
 
   @get('/showData')
@@ -43,9 +43,9 @@ export class CrawlerController {
     try {
       const position = path.resolve(__dirname, '../../data/course.json')
       const result = fs.readFileSync(position, 'utf-8')
-      res.json(getResponseData(JSON.parse(result)))
+      res.json(getResponseData<ResponseData.showData>(JSON.parse(result)))
     } catch (e) {
-      res.json(getResponseData(null, '数据不存在'))
+      res.json(getResponseData<ResponseData.showData>(null, '数据不存在'))
     }
   }
 }
