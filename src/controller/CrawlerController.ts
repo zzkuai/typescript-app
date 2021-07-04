@@ -23,7 +23,7 @@ const test = (req: Request, res: Response, next: NextFunction) => {
   next()
 }
 
-@controller('/')
+@controller('/api')
 export class CrawlerController {
   @get('/getData')
   @use(checkLogin)
